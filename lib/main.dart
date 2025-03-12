@@ -18,18 +18,18 @@ class Proveedor {
   final int idProveedor;
   final String nombre;
   final String apellido;
-  final String cargo; // Nuevo atributo
+  final String cargo;
 
   Proveedor(this.idProveedor, this.nombre, this.apellido, this.cargo);
 }
 
 class ProveedoresList extends StatelessWidget {
-  final List<Map<String, dynamic>> proveedoresData = [
-    {'id': 1, 'nombre': 'Juan', 'apellido': 'Pérez', 'cargo': 'Gerente'},
-    {'id': 2, 'nombre': 'María', 'apellido': 'Gómez', 'cargo': 'Vendedor'},
-    {'id': 3, 'nombre': 'Carlos', 'apellido': 'Rodríguez', 'cargo': 'Analista'},
-    {'id': 4, 'nombre': 'Ana', 'apellido': 'López', 'cargo': 'Supervisor'},
-    {'id': 5, 'nombre': 'Pedro', 'apellido': 'Martínez', 'cargo': 'Técnico'},
+  final List<Proveedor> proveedores = [
+    Proveedor(1, 'Juan', 'Pérez', 'Gerente'),
+    Proveedor(2, 'María', 'Gómez', 'Vendedor'),
+    Proveedor(3, 'Carlos', 'Rodríguez', 'Analista'),
+    Proveedor(4, 'Ana', 'López', 'Supervisor'),
+    Proveedor(5, 'Pedro', 'Martínez', 'Técnico'),
   ];
 
   @override
@@ -40,7 +40,7 @@ class ProveedoresList extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          children: proveedoresData.map((proveedor) {
+          children: proveedores.map((proveedor) {
             return Container(
               margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               decoration: BoxDecoration(
@@ -56,9 +56,9 @@ class ProveedoresList extends StatelessWidget {
                 ],
               ),
               child: ListTile(
-                title: Text('${proveedor['nombre']} ${proveedor['apellido']}'),
+                title: Text('${proveedor.nombre} ${proveedor.apellido}'),
                 subtitle: Text(
-                    'ID: ${proveedor['id']} - Cargo: ${proveedor['cargo']}'), // Muestra el cargo
+                    'ID: ${proveedor.idProveedor} - Cargo: ${proveedor.cargo}'),
               ),
             );
           }).toList(),
