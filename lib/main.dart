@@ -1,41 +1,67 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
-      theme: ThemeData(
-        // useMaterial3: false,
-        primarySwatch: Colors.blue,
-      ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: ProveedoresList(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+class Proveedor {
+  final int idProveedor;
+  final String nombre;
+  final String apellido;
+  final String cargo; // Nuevo atributo
+
+  Proveedor(this.idProveedor, this.nombre, this.apellido, this.cargo);
+}
+
+class ProveedoresList extends StatelessWidget {
+  final List<Map<String, dynamic>> proveedoresData = [
+    {'id': 1, 'nombre': 'Juan', 'apellido': 'Pérez', 'cargo': 'Gerente'},
+    {'id': 2, 'nombre': 'María', 'apellido': 'Gómez', 'cargo': 'Vendedor'},
+    {'id': 3, 'nombre': 'Carlos', 'apellido': 'Rodríguez', 'cargo': 'Analista'},
+    {'id': 4, 'nombre': 'Ana', 'apellido': 'López', 'cargo': 'Supervisor'},
+    {'id': 5, 'nombre': 'Pedro', 'apellido': 'Martínez', 'cargo': 'Técnico'},
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
+        title: Text('Lista de Proveedores'),
       ),
       body: Center(
-        child: Text(
-          'Hello, World!',
+        child: Column(
+          children: proveedoresData.map((proveedor) {
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.blue[100],
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: ListTile(
+                title: Text('${proveedor['nombre']} ${proveedor['apellido']}'),
+                subtitle: Text(
+                    'ID: ${proveedor['id']} - Cargo: ${proveedor['cargo']}'), // Muestra el cargo
+              ),
+            );
+          }).toList(),
         ),
       ),
     );
